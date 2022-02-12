@@ -1,4 +1,18 @@
 
+        CHANGES IN spatstat.random VERSION 2.1-0
+
+OVERVIEW
+
+    o Indefinite integral.
+
+    o Internal repairs, code acceleration, and improvements.
+
+NEW FUNCTIONS
+
+    o indefinteg
+    Numerically computes the indefinite integral of a function.
+
+
         CHANGES IN spatstat.random VERSION 2.0-0
 
 OVERVIEW
@@ -22,7 +36,7 @@ SIGNIFICANT USER-VISIBLE CHANGES
 
     o rMatClust, rThomas, rCauchy, rVarGamma
     New argument 'nonempty'
-    
+
 BUG FIXES
 
     o rmh
