@@ -6,6 +6,7 @@
 \alias{datagen.runifpoisppOnLines}
 \alias{datagen.rpoisppOnLines}
 \alias{default.clipwindow}
+\alias{detect.par.format}
 \alias{expandwinPerfect}
 \alias{fakeNeyScot}
 \alias{getRandomFieldsModelGen}
@@ -65,6 +66,7 @@ datagen.runifpoisppOnLines(lambda, L)
 datagen.rpoisppOnLines(lambda, L, lmax, \dots, check)
 default.clipwindow(object, epsilon)
 expandwinPerfect(W, expand, amount)
+detect.par.format(par, native, generic)
 fakeNeyScot(Y, lambda, win, saveLambda, saveparents)
 getRandomFieldsModelGen(model)
 handle.rshift.args(W, \dots, radius, width, height,
@@ -84,7 +86,7 @@ MultiPair.checkmatrix(mat, n, matname, naok, zerook, asymmok)
 \method{print}{summary.rmhexpand}(x, \dots)
 RandomFieldsSafe()
 reheat(model, invtemp)
-resolve.vargamma.shape(\dots, nu.ker, nu.pcf, default)
+resolve.vargamma.shape(\dots, nu.ker, nu.pcf, nu, allow.nu, allow.default)
 retrieve.param(desired, aliases, \dots, par)
 rMaternInhibition(type, kappa, r, win, stationary, \dots, nsim, drop)
 RmhExpandRule(nama)
