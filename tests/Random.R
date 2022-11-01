@@ -14,7 +14,7 @@ cat(paste("--------- Executing",
           "test code -----------\n"))
 #'  tests/randoms.R
 #'   Further tests of random generation code
-#'  $Revision: 1.14 $ $Date: 2021/09/09 10:02:00 $
+#'  $Revision: 1.16 $ $Date: 2022/10/23 06:20:10 $
 
 
 local({
@@ -68,6 +68,7 @@ local({
   if(FULLTEST) {
     XX <- rmpoispp(ZZ, nsim=3)
     YY <- rmpoint(10, f=ZZ, nsim=3)
+    UU <- rmpoint(10, f=ZZ[[1]], types=letters[1:2])
     VV <- rpoint.multi(10, f=g,
                        marks=factor(sample(letters[1:3], 10, replace=TRUE)),
                        nsim=3)
@@ -95,6 +96,9 @@ local({
     Y <- rMatClust(10, 0.05, Z, saveLambda=TRUE)
     Y <- rCauchy(30, 0.01, Z, saveLambda=TRUE)
     Y <- rVarGamma(30, 2, 0.02, Z, saveLambda=TRUE)
+    #' inhomogeneous
+    Moo <- as.im(function(x,y) { 10 * x }, unit.square())
+    X <- rMatClust(10, 0.2, Moo)
   }
 
   if(FULLTEST) {

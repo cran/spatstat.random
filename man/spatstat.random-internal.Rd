@@ -60,6 +60,8 @@
 }
 \usage{
 
+
+
 change.default.expand(x, newdefault)
 datagen.runifpointOnLines(n, L)
 datagen.runifpoisppOnLines(lambda, L)
@@ -104,7 +106,7 @@ rmhSnoopEnv(Xinit, Wclip, R)
 \method{rmhmodel}{rmhmodel}(model, \dots) 
 \method{rmhstart}{rmhstart}(start, \dots) 
 \method{rmhstart}{list}(start, \dots) 
-rmpoint.I.allim(n, f, types)
+rmpoint.I.allim(n, f, types, nsim)
 rpoint.multi(n, f, fmax, marks, win, giveup, verbose, warn, nsim, drop)
 runifpoispp(lambda, win, \dots, nsim, drop)
 runifpoisppOnLines(lambda, L, nsim, drop)

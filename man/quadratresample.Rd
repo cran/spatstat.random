@@ -55,20 +55,16 @@ quadratresample(X, nx, ny=nx, ...,
   list of point patterns (if \code{nsamples > 1}).
 }
 \author{\adrian
-  
-  
   and \rolf
-  
 }
 \seealso{
   \code{\link[spatstat.geom]{quadrats}},
   \code{\link[spatstat.geom]{quadratcount}}.
 
-  See \code{\link[spatstat.core]{varblock}} to estimate the variance of
+  See \code{\link[spatstat.explore]{varblock}} to estimate the variance of
   a summary statistic by block resampling.
 }
 \examples{
-  data(bei)
   quadratresample(bei, 6, 3)
 }
 \keyword{spatial}

@@ -342,10 +342,10 @@ trend corresponding to a particular type, there is still a component
 
 \seealso{
   \code{\link{rmh}},
-  \code{\link[spatstat.core]{rmh.ppm}},
+  \code{\link[spatstat.model]{rmh.ppm}},
   \code{\link{rStrauss}},
   \code{\link{ppp}},
-  \code{\link[spatstat.core]{ppm}}
+  \code{\link[spatstat.model]{ppm}}
   
   Interactions: \rmhInteractionsList.
 }
@@ -588,7 +588,7 @@ trend corresponding to a particular type, there is still a component
                    control=list(nrep=nr,nverb=nv))
    
    mod16 <- list(cif="geyer",par=list(beta=8.1,gamma=2.2,r=0.08,sat=3))
-   data(redwood)
+
    X3.geyer <- rmh(model=mod16,start=list(x.start=redwood),
                    control=list(periodic=TRUE,nrep=nr,nverb=nv))
    
@@ -676,10 +676,7 @@ trend corresponding to a particular type, there is still a component
    if(!interactive()) spatstat.options(oldopt)
 }
 \author{\adrian
-  
-  
   and \rolf
-  
 }
 \keyword{spatial}
 \keyword{datagen}

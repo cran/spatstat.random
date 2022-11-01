@@ -71,7 +71,7 @@
   The algorithm for binary image masks is faster than the rejection
   method but involves discretisation.
 
-  If \code{warn=TRUE}, then a warning will be issued if \code{n} is very large.
+  If \code{warn=TRUE} (the default), a warning will be issued if \code{n} is very large.
   The threshold is \code{\link{spatstat.options}("huge.npoints")}.
   This warning has no consequences,
   but it helps to trap a number of common errors.
@@ -86,7 +86,7 @@
  # 100 random points in the unit square
  pp <- runifpoint(100)
  # irregular window
- data(letterR)
+ letterR
  # polygonal
  pp <- runifpoint(100, letterR)
  # binary image mask
@@ -97,10 +97,7 @@
  runifpoint(ex=cells)
 }
 \author{\adrian
-  
-  
   and \rolf
-  
 }
 \keyword{spatial}
 \keyword{datagen}

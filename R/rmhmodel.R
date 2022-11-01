@@ -2,7 +2,7 @@
 #
 #   rmhmodel.R
 #
-#   $Revision: 1.80 $  $Date: 2022/01/03 08:01:37 $
+#   $Revision: 1.81 $  $Date: 2022/05/21 08:53:38 $
 #
 #
 
@@ -591,7 +591,7 @@ spatstatRmhInfo <- function(cifname) {
               ntypes <- length(types)
 
               check.finite(beta, ctxt)
-              check.nvector(beta, ntypes, TRUE, "types")
+              check.nvector(beta, ntypes, TRUE, "types", vname="beta")
 
               MultiPair.checkmatrix(gamma, ntypes, "par$gamma")
 	      gamma[is.na(gamma)] <- 1
@@ -664,7 +664,7 @@ spatstatRmhInfo <- function(cifname) {
               hradii <- par$hradii
               ntypes <- length(types)
 
-              check.nvector(beta, ntypes, TRUE, "types")
+              check.nvector(beta, ntypes, TRUE, "types", vname="beta")
               check.finite(beta, ctxt)
               
               MultiPair.checkmatrix(gamma, ntypes, "par$gamma")
@@ -1226,7 +1226,7 @@ spatstatRmhInfo <- function(cifname) {
               hradii <- par$hradii
               ntypes <- length(types)
 
-              check.nvector(beta, ntypes, TRUE, "types")
+              check.nvector(beta, ntypes, TRUE, "types", vname="beta")
               check.finite(beta, ctxt)
               
               MultiPair.checkmatrix(hradii, ntypes, "par$hradii")
