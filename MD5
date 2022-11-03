@@ -1,4 +1,4 @@
-d2299756e7d69d7f5e76ae0bd19334b8 *DESCRIPTION
+4fd441b24d1a58489d0ee546076a32ba *DESCRIPTION
 d0f84a0be8b99d2c028e8d5c937b7455 *NAMESPACE
 3a235b52636eb85123204447288ff587 *NEWS
 5d9344c59bff8a6f68b22efd5a417699 *R/First.R
@@ -40,7 +40,7 @@ a7ffe5c139a6e0cf993f43da59318ab1 *R/rmhexpand.R
 f369866b700d69d132d1735b5ffa68f4 *R/rshift.R
 d6ba8cf2081775fdeb37cbdc610db598 *R/rshift.psp.R
 152bbf4b15996c2c583ad5578f14d45b *inst/CITATION
-29c9b49c52687137aa8af1bf9a122df4 *inst/doc/packagesizes.txt
+52f418fd95c12bd60554f23b06624892 *inst/doc/packagesizes.txt
 dbe7862892d2639e1ecca3511d68bf69 *man/Window.rmhmodel.Rd
 34cb9e9e39d414318148cdc500bfb5b9 *man/as.owin.rmhmodel.Rd
 7479ddcac0da558c2ff3227fe954cfca *man/clusterfield.Rd
@@ -146,7 +146,7 @@ bea8dac7a34f45fb243390c12e7ff364 *src/lennard.c
 7deeb7878050235c78b089764ffa3cd8 *src/methas.c
 69d57274cda1c955d631a7c241cb9a00 *src/methas.h
 df2c29d04f2da76a6baffe8117e6cfde *src/mhloop.h
-cac66100b7afa5e2c3abe989cb927a3d *src/mhsnoop.c
+e324e8b564460332c1a069f428c92270 *src/mhsnoop.c
 81c1a015083476952ee14be55991f2d9 *src/mhsnoop.h
 cfce4c5e0f35b12efa19c0e5144fa540 *src/mhsnoopdef.h
 af57f00feb578ceeb59fc71b5056e27f *src/mhv1.h
@@ -156,7 +156,7 @@ d2deceb7ed8f51910ab02b2e550b0779 *src/mhv4.h
 8895a12dc3a8b12e2b2fb3842bb10270 *src/mhv5.h
 660b5e8eb0bc81c4e39389dde6c4de85 *src/multihard.c
 ec3581d33e1593f6acbe886a4dc5ab7e *src/penttinen.c
-155a1f8b25724563097476a606961c37 *src/proto.h
+481b69cab00c8d4af2b87d4ac477a81b *src/proto.h
 574358e78217dc076352a2d21c782344 *src/rthin.c
 9f05f88262e87e2319a4a96de5f41966 *src/sftcr.c
 d1e8a99cf85ebb30db9b2dcb8b7493e1 *src/straush.c
