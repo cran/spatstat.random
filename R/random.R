@@ -3,7 +3,7 @@
 ##
 ##    Functions for generating random point patterns
 ##
-##    $Revision: 4.106 $   $Date: 2022/05/21 08:53:38 $
+##    $Revision: 4.113 $   $Date: 2023/01/06 11:57:39 $
 ##
 ##    runifpoint()      n i.i.d. uniform random points ("binomial process")
 ##    runifdisc()       special case of disc (faster)
@@ -680,7 +680,7 @@ rSSI <- function(r, n=Inf, win = square(1),
 
 rPoissonCluster <-
   function(kappa, expand, rcluster, win = owin(c(0,1),c(0,1)), ...,
-           lmax=NULL, nsim=1, drop=TRUE, saveparents=TRUE)
+           nsim=1, drop=TRUE, saveparents=TRUE, kappamax=NULL)
 {
   ## Generic Poisson cluster process
   ## Implementation for bounded cluster radius
@@ -691,33 +691,42 @@ rPoissonCluster <-
   ## "..." are arguments to be passed to 'rcluster()'
   ##
 
-  ## Catch old argument name rmax for expand, and allow rmax to be
-  ## passed to rcluster (and then be ignored)
-  if(missing(expand) && !is.null(rmax <- list(...)$rmax)){
-      expand <- rmax
-      f <- rcluster
-      rcluster <- function(..., rmax) f(...)
-  }
-  win <- as.owin(win)
-  
   if(!missing(nsim)) {
     check.1.integer(nsim)
     stopifnot(nsim >= 0)
     if(nsim == 0) return(simulationresult(list()))
   }
 
+  ## Catch old argument name rmax for expand, and allow rmax to be
+  ## passed to rcluster (and then be ignored)
+  if(missing(expand) && !is.null(rmax <- list(...)$rmax)) {
+    warning("outdated usage in rPoissonCluster: 'rmax' should be 'expand'")
+    expand <- rmax
+  }
+
+  rPoissonClusterEngine(kappa=kappa, expand=expand, rcluster=rcluster,
+                        win=win, nsim=nsim, drop=drop, saveparents=saveparents,
+                        kappamax=kappamax, ...)
+}
+
+rPoissonClusterEngine <- function(kappa, expand=rmax, rcluster, win, ..., 
+                                  nsim=1, drop=TRUE, saveparents=TRUE,
+                                  kappamax=lmax, lmax=NULL, rmax=NULL) {
   ## Generate parents in dilated window
+  win <- as.owin(win)
   frame <- boundingbox(win)
   dilated <- owin(frame$xrange + c(-expand, expand),
                   frame$yrange + c(-expand, expand))
+
   if(is.im(kappa) && !is.subset.owin(dilated, as.owin(kappa)))
     stop(paste("The window in which the image",
                sQuote("kappa"),
                "is defined\n",
                "is not large enough to contain the dilation of the window",
                sQuote("win")))
-  parentlist <- rpoispp(kappa, lmax=lmax, win=dilated, nsim=nsim)
-  if(nsim == 1) parentlist <- list(parentlist)
+
+  parentlist <- rpoispp(kappa, lmax=kappamax, win=dilated,
+                        nsim=nsim, drop=FALSE)
 
   resultlist <- vector(mode="list", length=nsim)
   for(isim in seq_len(nsim)) {
@@ -907,37 +916,80 @@ thinjump <- function(n, p) {
 }
 
 rthin <- function(X, P, ..., nsim=1, drop=TRUE) {
-  if(!(is.ppp(X) || is.lpp(X) || is.pp3(X) || is.ppx(X) || is.psp(X)))
+  if(!(inherits(X, c("ppp", "lpp", "pp3", "ppx", "psp")) ||
+       recognise.spatstat.type(X) == "listxy"))
     stop(paste("X should be a point pattern (class ppp, lpp, pp3 or ppx)",
                "or a line segment pattern (class psp)"),
          call.=FALSE)
-  if(!missing(nsim)) {
-    check.1.integer(nsim)
-    stopifnot(nsim >= 0)
-    if(nsim == 0) return(simulationresult(list()))
+  rthinEngine(X, P, ..., nsim=nsim, drop=drop)
+}
+
+rthinEngine <- function(X, P, ..., nsim=1, drop=TRUE,
+                        Pmax=1, na.zero=FALSE,
+                        what=c("objects", "fate"),
+                        fatal=TRUE, warn=TRUE) {
+  check.1.integer(nsim)
+  stopifnot(nsim >= 0)
+  ## if what = 'objects', return the thinned pattern
+  ## if what = 'fate', return the logical vector (retained/deleted)
+  what <- match.arg(what)
+  ## recognise list(x,y) input
+  if(israwxy <- (recognise.spatstat.type(X) == "listxy")) {
+    xx <- X$x
+    yy <- X$y
+    nX <- length(xx)
+  } else {
+    nX <- nobjects(X)
   }
-  nX <- nobjects(X)
-  if(nX == 0) {
-    result <- rep(list(X), nsim)
+  ## catch trivial cases
+  if(nX == 0 || nsim == 0) {
+    switch(what,
+           objects = {
+             result <- rep(list(X), nsim)
+           },
+           fate = {
+             result <- rep(list(logical(nX)), nsim)
+           })
     result <- simulationresult(result, nsim, drop)
     return(result)
+  }
+
+  if(!missing(Pmax)) {
+    check.1.real(Pmax)
+    stopifnot(Pmax > 0)
   }
 
   if(is.numeric(P) && length(P) == 1 && spatstat.options("fastthin")) {
-    # special algorithm for constant probability
+    ## special fast algorithm for constant probability
+    if(!missing(Pmax)) P <- P/Pmax
+    if(badprobability(P, TRUE)) stop("P is not a valid probability value")
     result <- vector(mode="list", length=nsim)
-    for(isim in seq_len(nsim)) {
-      retain <- thinjump(nX, P)
-      Y <- X[retain]
-      ## also handle offspring-to-parent map if present
-      if(!is.null(parentid <- attr(X, "parentid")))
-        attr(Y, "parentid") <- parentid[retain]
-      result[[isim]] <- Y
-    }
+    switch(what,
+           fate = {
+             for(isim in seq_len(nsim)) 
+               result[[isim]] <- thinjump(nX, P)
+           },
+           objects = {
+             for(isim in seq_len(nsim)) {
+               retain <- thinjump(nX, P)
+               if(israwxy) {
+                 Y <- list(x=xx[retain], y=yy[retain])
+               } else {
+                 Y <- X[retain]
+                 attr(Y, "parents") <- attr(X, "parents")
+                 ## also handle offspring-to-parent map if present
+                 if(!is.null(parentid <- attr(X, "parentid")))
+                   attr(Y, "parentid") <- parentid[retain]
+               }
+               result[[isim]] <- Y
+             }
+           })
     result <- simulationresult(result, nsim, drop)
     return(result)
   }
 
+  #' general case: compute probabilities first
+  
   if(is.numeric(P)) {
     ## vector of retention probabilities
     pX <- P
@@ -947,11 +999,9 @@ rthin <- function(X, P, ..., nsim=1, drop=TRUE) {
       else 
         stop("Length of vector P does not match number of points of X")
     }
-    if(anyNA(pX))
-      stop("P contains NA's")
   } else if(is.function(P)) {
     ## function - evaluate it at points of X
-    if(!(is.ppp(X) || is.lpp(X)))
+    if(!(is.ppp(X) || is.lpp(X) || israwxy))
       stop(paste("Don't know how to apply a function to an object of class",
                  commasep(sQuote(class(X)))),
            call.=FALSE)
@@ -960,36 +1010,74 @@ rthin <- function(X, P, ..., nsim=1, drop=TRUE) {
       stop("Function P returned a vector of incorrect length")
     if(!is.numeric(pX))
       stop("Function P returned non-numeric values")
-    if(anyNA(pX))
-      stop("Function P returned some NA values")
   } else if(is.im(P)) {
     ## image - look it up
-    if(!(is.ppp(X) || is.lpp(X)))
+    if(!(is.ppp(X) || is.lpp(X) || israwxy))
       stop(paste("Don't know how to apply image values to an object of class",
                  commasep(sQuote(class(X)))),
            call.=FALSE)
     if(!(P$type %in% c("integer", "real")))
       stop("Values of image P should be numeric")
     pX <- P[X, drop=FALSE]
-    if(anyNA(pX))
-      stop("some points of X lie outside the domain of image P")
-  } else
-  stop("Unrecognised format for P")
+  } else stop("Unrecognised format for P")
 
-  if(min(pX) < 0) stop("some probabilities are negative")
-  if(max(pX) > 1) stop("some probabilities are greater than 1")
-
-  result <- vector(mode="list", length=nsim)
-  for(isim in seq_len(nsim)) {
-    retain <- (runif(length(pX)) < pX)
-    Y <- X[retain]
-    ## also handle offspring-to-parent map if present
-    if(!is.null(parentid <- attr(X, "parentid")))
-      attr(Y, "parentid") <- parentid[retain]
-    result[[isim]] <- Y
+  if(!all(is.finite(pX))) {
+    if(na.zero) {
+      pX[is.na(pX)] <- 0
+    } else if(anyNA(pX)) {
+      if(is.function(P)) stop("Function P returned some NA values")
+      if(is.im(P)) stop("Some points lie outside the domain of image P")
+      stop("P contains NA's")
+    } else {
+      if(is.function(P)) stop("Function P returned some NaN or Inf values")
+      if(is.im(P)) stop("Image P contains NaN or Inf values")
+      stop("P contains NaN or Inf values")
+    }
   }
+
+  if(fatal || warn) {
+    ## check for bad values of probability
+    ra <- range(pX)/Pmax
+    if(ra[1] < 0) {
+      gripe <- paste("some probabilities are negative",
+                     paren(paste("minimum", ra[1])))
+      if(fatal) stop(gripe)
+      if(warn) stop(gripe)
+    }
+    if(ra[2] > 1) {
+      gripe <- paste("some probabilities are greater than 1",
+                     paren(paste("maximum", ra[2])))
+      if(fatal) stop(gripe)
+      if(warn) warning(gripe)
+    }
+  }
+
+  #' now simulate
+  
+  result <- vector(mode="list", length=nsim)
+  switch(what,
+         fate = {
+           for(isim in seq_len(nsim)) 
+             result[[isim]] <- ((Pmax * runif(length(pX))) < pX)
+         },
+         objects = {
+           for(isim in seq_len(nsim)) {
+             retain <- ((Pmax * runif(length(pX))) < pX)
+             if(israwxy) {
+               Y <- list(x=xx[retain], y=yy[retain])
+             } else {
+               Y <- X[retain]
+               attr(Y, "parents") <- attr(X, "parents")
+               ## also handle offspring-to-parent map if present
+               if(!is.null(parentid <- attr(X, "parentid")))
+                 attr(Y, "parentid") <- parentid[retain]
+             }
+             result[[isim]] <- Y
+             }
+         })
   result <- simulationresult(result, nsim, drop)
   return(result)
 }
+
 
 

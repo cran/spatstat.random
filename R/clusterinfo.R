@@ -2,7 +2,7 @@
 #' 
 #'   Lookup table of information about cluster processes and Cox processes
 #'
-#'   $Revision: 1.52 $ $Date: 2022/03/18 15:16:47 $
+#'   $Revision: 1.57 $ $Date: 2023/01/02 02:57:50 $
 #'
 #'   Information is extracted by calling
 #'             spatstatClusterModelInfo(<name>)
@@ -56,6 +56,9 @@
 #'                       or converts them to the generic parameters (if native=FALSE).
 #'                       Transitional syntax: function(par, native=old, ..., old=TRUE)
 #'                                            ('old' is a synonym for 'native')
+#'
+#'       native2generic  function(par)
+#'                       Streamlined function to convert 'par' from native to generic format.
 #'
 #'       outputshape     function(margs, ..)
 #'                       Convert 'margs' to the format required for printed output.
@@ -192,11 +195,11 @@ detect.par.format <- function(par, native, generic) {
   parnames       = c("kappa", "sigma2"),
   shapenames     = NULL,
   clustargsnames = NULL,
-  checkpar = function(par, native = old, ..., old=TRUE){
+  checkpar = function(par, native = old, ..., old=TRUE, strict=TRUE){
     ## 'par' is in either format
     if(is.null(par))
       par <- c(kappa=1,scale=1)
-    if(any(par<=0))
+    if(strict && any(par<=0))
       stop("par values must be positive.", call.=FALSE)
     fmt <- detect.par.format(par, native=c("kappa", "sigma2"), generic=c("kappa", "scale"))
     if(fmt == "generic" && native) {
@@ -208,6 +211,11 @@ detect.par.format <- function(par, native, generic) {
       par[2L] <- sqrt(par[2L])
       names(par)[2L] <- "scale"
     }
+    return(par)
+  },
+  native2generic = function(par) {
+    par[2L] <- sqrt(par[2L])
+    names(par) <- c("kappa", "scale")
     return(par)
   },
   outputshape = function(margs, ...) list(),
@@ -246,23 +254,23 @@ detect.par.format <- function(par, native, generic) {
     list(x=rnorm(n, sd=sigma), y=rnorm(n, sd=sigma))
   },
   ## K-function
-  K = function(par,rvals, ...){
+  K = function(par,rvals, ..., strict=TRUE){
     ## 'par' is in native format
-    if(any(par <= 0))
+    if(strict && any(par <= 0))
       return(rep.int(Inf, length(rvals)))
     pi*rvals^2+(1-exp(-rvals^2/(4*par[2L])))/par[1L]
   },
   ## pair correlation function
-  pcf= function(par,rvals, ...){
+  pcf= function(par,rvals, ..., strict=TRUE){
     ## 'par' is in native format
-    if(any(par <= 0))
+    if(strict && any(par <= 0))
       return(rep.int(Inf, length(rvals)))
     1 + exp(-rvals^2/(4 * par[2L]))/(4 * pi * par[1L] * par[2L])
   },
   ## gradient of pcf (contributed by Chiara Fend)
-  Dpcf= function(par,rvals, ...){
+  Dpcf= function(par,rvals, ..., strict=TRUE){
     ## 'par' is in native format
-    if(any(par <= 0)){
+    if(strict && any(par <= 0)){
       dsigma2 <- rep.int(Inf, length(rvals))
       dkappa <- rep.int(Inf, length(rvals))
     } else {
@@ -272,6 +280,22 @@ detect.par.format <- function(par, native, generic) {
     out <- rbind(dkappa, dsigma2)
     rownames(out) <- c("kappa","sigma2")
     return(out)
+  },
+  ## Convert to/from canonical cluster parameters
+  tocanonical = function(par, ...) {
+    ## 'par' is in native format
+    ## convert to experimental 'canonical' format
+    kappa <- par[[1L]]
+    sigma2 <- par[[2L]]
+    c(strength=1/(4 * pi * kappa * sigma2), scale=sqrt(sigma2))
+  },
+  tohuman = function(can, ...) {
+    ## 'can' is in 'canonical' format
+    ## convert to native format
+    strength <- can[[1L]]
+    scale <- can[[2L]]
+    sigma2 <- scale^2
+    c(kappa=1/(4 * pi * strength * sigma2), sigma2=sigma2)
   },
   ## sensible starting parameters
   selfstart = function(X) {
@@ -351,14 +375,18 @@ detect.par.format <- function(par, native, generic) {
   parnames       = c("kappa", "R"),
   shapenames     = NULL,
   clustargsnames = NULL,
-  checkpar = function(par, native = old, ..., old = TRUE){
+  checkpar = function(par, native = old, ..., old=TRUE, strict=TRUE){
     ## 'par' is in either format
     if(is.null(par))
       par <- c(kappa=1,scale=1)
-    if(any(par<=0))
+    if(strict && any(par<=0))
       stop("par values must be positive.", call.=FALSE)
     detect.par.format(par, native=c("kappa", "R"), generic=c("kappa", "scale"))
     names(par)[2L] <- if(native) "R" else "scale"
+    return(par)
+  },
+  native2generic = function(par) {
+    names(par) <- c("kappa", "scale")
     return(par)
   },
   ## density function for the distance to offspring
@@ -424,6 +452,21 @@ detect.par.format <- function(par, native, generic) {
     rownames(out) <- c("kappa","R")
     return(out)
   },         
+  ## Convert to/from canonical cluster parameters
+  tocanonical = function(par, ...) {
+    ## 'par' is in native format
+    ## convert to experimental 'canonical' format
+    kappa <- par[[1L]]
+    R <- par[[2L]]
+    c(strength=1/(pi * kappa * R^2), scale=R)
+  },
+  tohuman = function(can, ...) {
+    ## 'can' is in 'canonical' format
+    ## convert to native format
+    strength <- can[[1L]]
+    scale <- can[[2L]]
+    c(kappa=1/(pi * strength * scale^2), R=scale)
+  },
   ## sensible starting paramters
   selfstart = function(X) {
     ## return 'par' in native format
@@ -460,11 +503,11 @@ detect.par.format <- function(par, native, generic) {
   parnames       = c("kappa", "eta2"),
   shapenames     = NULL,
   clustargsnames = NULL,
-  checkpar = function(par, native = old, ..., old = TRUE){
+  checkpar = function(par, native = old, ..., old=TRUE, strict=TRUE){
     ## 'par' is in either format
     if(is.null(par))
       par <- c(kappa=1,scale=1)
-    if(any(par<=0))
+    if(strict && any(par<=0))
       stop("par values must be positive.", call.=FALSE)
     fmt <- detect.par.format(par, native=c("kappa", "eta2"), generic=c("kappa", "scale"))
     if(fmt == "generic" && native) {
@@ -478,6 +521,11 @@ detect.par.format <- function(par, native, generic) {
       par[2L] <- sqrt(par[2L])/2
       names(par)[2L] <- "scale"
     }
+    return(par)
+  },
+  native2generic = function(par) {
+    par[2L] <- sqrt(par[2L])/2
+    names(par) <- c("kappa", "scale")
     return(par)
   },
   outputshape = function(margs, ...) list(),
@@ -537,6 +585,22 @@ detect.par.format <- function(par, native, generic) {
     out <- rbind(dkappa, deta2)
     rownames(out) <- c("kappa","eta2")
     return(out)
+  },
+  ## Convert to/from canonical cluster parameters
+  tocanonical = function(par, ...) {
+    ## 'par' is in native format
+    ## convert to experimental 'canonical' format
+    kappa <- par[[1L]]
+    eta2 <- par[[2L]]
+    c(strength=1/(2 * pi * kappa * eta2), scale=sqrt(eta2)/2)
+  },
+  tohuman = function(can, ...) {
+    ## 'can' is in 'canonical' format
+    ## convert to native format
+    strength <- can[[1L]]
+    scale <- can[[2L]]
+    eta2 <- 4 * scale^2
+    c(kappa=1/(2 * pi * strength * eta2), eta2=eta2)
   },
   selfstart = function(X) {
     ## return 'par' in native format
@@ -614,7 +678,9 @@ resolve.vargamma.shape <- function(...,
   numer <- ((r/scale)^(nu+1)) * besselK(r/scale, nu)
   numer[r==0] <- 0
   denom <- (2^nu) * scale * gamma(nu + 1)
-  numer/denom
+  y <- numer/denom
+  y[!is.finite(y)] <- 0
+  return(y)
 }
 
 .VarGammaPdist <- function(r, scale, nu, ...) {
@@ -652,14 +718,18 @@ resolve.vargamma.shape <- function(...,
   parnames = c("kappa", "eta"),
   shapenames     = "nu",
   clustargsnames = "nu",
-  checkpar = function(par, native = old, ..., old = TRUE){
+  checkpar = function(par, native = old, ..., old = TRUE, strict=TRUE){
     ## 'par' is in either format
     if(is.null(par))
       par <- c(kappa=1,scale=1)
-    if(any(par<=0))
+    if(strict && any(par<=0))
       stop("par values must be positive.", call.=FALSE)
     detect.par.format(par, native=c("kappa", "eta"), generic=c("kappa", "scale"))
     names(par)[2L] <- if(native) "eta" else "scale"
+    return(par)
+  },
+  native2generic = function(par) {
+    names(par) <- c("kappa", "scale")
     return(par)
   },
   outputshape = .VarGammaOutputShape,
@@ -740,6 +810,23 @@ resolve.vargamma.shape <- function(...,
     return(1 + sig2 * fr)
   },
   Dpcf = NULL,
+  ## Convert to/from canonical cluster parameters
+  tocanonical = function(par, ..., margs) {
+    ## 'par' is in native format
+    ## convert to experimental 'canonical' format
+    kappa <- par[[1L]]
+    eta <- par[[2L]]
+    nu.pcf <- margs$nu.pcf
+    c(strength=1/(4 * pi * nu.pcf * kappa * eta^2), scale=eta)
+  },
+  tohuman = function(can, ..., margs) {
+    ## 'can' is in 'canonical' format
+    ## convert to native format
+    strength <- can[[1L]]
+    eta <- scale <- can[[2L]]
+    nu.pcf <- margs$nu.pcf
+    c(kappa=1/(4 * pi * nu.pcf * strength * eta^2), eta=scale)
+  },
   ## sensible starting values
   selfstart = function(X) {
     ## return 'par' in native format
@@ -847,14 +934,18 @@ resolve.vargamma.shape <- function(...,
   modelabbrev    = "log-Gaussian Cox process", # In fitted obj.
   printmodelname = function(...) "log-Gaussian Cox process", # Used by print.kppm
   parnames       = c("sigma2", "alpha"),
-  checkpar = function(par, native = old, ..., old=TRUE){
+  checkpar = function(par, native = old, ..., old=TRUE, strict=TRUE){
     ## 'par' is in either format
     if(is.null(par))
       par <- c(var=1,scale=1)
-    if(any(par<=0))
+    if(strict && any(par<=0))
       stop("par values must be positive.", call.=FALSE)
     detect.par.format(par, native=c("sigma2", "alpha"), generic=c("var", "scale"))
     names(par) <- if(native) c("sigma2", "alpha") else c("var","scale")
+    return(par)
+  },
+  native2generic = function(par) {
+    names(par) <- c("var","scale")
     return(par)
   },
   outputshape = function(margs, ...) return(margs),

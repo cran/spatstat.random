@@ -18,6 +18,7 @@
 \alias{kraever}
 \alias{kraeverRandomFields}
 \alias{MultiPair.checkmatrix}
+\alias{optimalinflation}
 \alias{print.rmhcontrol}
 \alias{print.rmhexpand}
 \alias{print.rmhmodel}
@@ -29,6 +30,10 @@
 \alias{resolve.vargamma.shape}
 \alias{retrieve.param}
 \alias{rMaternInhibition}
+\alias{rMatClustHom}
+\alias{rThomasHom}
+\alias{rCauchyHom}
+\alias{rPoissonClusterEngine}
 \alias{RmhExpandRule}
 \alias{rmhsnoop}
 \alias{rmhResolveControl}
@@ -43,14 +48,19 @@
 \alias{rmhstart.list}
 \alias{rmpoint.I.allim}
 \alias{rpoint.multi}
+\alias{rthinEngine}
 \alias{runifpoispp}          
 \alias{runifpoisppOnLines}          
 \alias{spatstatClusterModelInfo}
+\alias{spatstatClusterSimInfo}
+\alias{spatstatClusterSimModelMatch}
 \alias{spatstatRmhInfo}
 \alias{summarise.trend}
 \alias{summary.rmhexpand}
 \alias{thinjump}
+\alias{thinParents}
 \alias{update.rmhstart}
+\alias{validate.kappa.mu}
 
 
 
@@ -80,6 +90,7 @@ is.expandable(x)
 kraever(package, fatal)
 kraeverRandomFields()
 MultiPair.checkmatrix(mat, n, matname, naok, zerook, asymmok)
+optimalinflation(clusters, mod, rD)
 \method{print}{rmhcontrol}(x, \dots)
 \method{print}{rmhexpand}(x, \dots, prefix=TRUE)
 \method{print}{rmhmodel}(x, \dots)
@@ -91,6 +102,11 @@ reheat(model, invtemp)
 resolve.vargamma.shape(\dots, nu.ker, nu.pcf, nu, allow.nu, allow.default)
 retrieve.param(desired, aliases, \dots, par)
 rMaternInhibition(type, kappa, r, win, stationary, \dots, nsim, drop)
+rMatClustHom(kappa, mu, R, W, \dots, nsim, drop, inflate, saveparents)
+rThomasHom(kappa, mu, sigma, W, \dots, nsim, drop, inflate, saveparents)
+rCauchyHom(kappa, mu, scale, W, \dots, nsim, drop, inflate, saveparents)
+rPoissonClusterEngine(kappa, expand, rcluster, win, \dots,
+                      nsim, drop, saveparents, kappamax, lmax, rmax) 
 RmhExpandRule(nama)
 \method{rmhcontrol}{rmhcontrol}(\dots) 
 \method{rmhcontrol}{list}(\dots) 
@@ -108,14 +124,20 @@ rmhSnoopEnv(Xinit, Wclip, R)
 \method{rmhstart}{list}(start, \dots) 
 rmpoint.I.allim(n, f, types, nsim)
 rpoint.multi(n, f, fmax, marks, win, giveup, verbose, warn, nsim, drop)
+rthinEngine(X, P, \dots, nsim, drop, Pmax, na.zero, what, fatal, warn)
 runifpoispp(lambda, win, \dots, nsim, drop)
 runifpoisppOnLines(lambda, L, nsim, drop)
 spatstatClusterModelInfo(name, onlyPCP)
+spatstatClusterSimInfo(name)
+spatstatClusterSimModelMatch(name, verbose)
 spatstatRmhInfo(cifname)
 summarise.trend(trend, w, a)
 \method{summary}{rmhexpand}(object, \dots)
 thinjump(n, p)
+thinParents(X, P, Pmax)
 \method{update}{rmhstart}(object, \dots)
+validate.kappa.mu(kappa, mu, kappamax, mumax,
+                  win, expand, \dots, context)
 
 
 }

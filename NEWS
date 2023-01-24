@@ -1,4 +1,84 @@
 
+        CHANGES IN spatstat.random VERSION 3.1-2
+
+OVERVIEW
+
+    o We thank Ya-Mei Chang for substantial contributions.
+    
+    o Faster algorithms for simulating cluster processes.
+    
+    o Bug fixes and internal improvements.
+
+NEW FUNCTIONS
+
+    o rpoisnonzero
+    Generate Poisson random variables conditioned to be positive.
+    
+    o rpoistrunc
+    Generate 'truncated' Poisson random variables,
+    conditioned to be greater than or equal to a specified minimum value.
+
+    o rclusterBKBC
+    (Advanced use) Internal algorithm to simulate any Neyman-Scott cluster
+    process using either the naive, Brix-Kendall, or Baddeley-Chang algorithm.
+    
+SIGNIFICANT USER-VISIBLE CHANGES
+
+    o rCauchy, rThomas, rMatClust, rVarGamma
+    These algorithms have been accelerated by several orders of magnitude
+    in the case where the cluster radius is large.
+    
+    o rCauchy, rThomas, rMatClust, rVarGamma
+    These functions now offer a choice of simulation algorithms.
+    
+    o rCauchy, rThomas, rMatClust, rVarGamma, rNeymanScott
+    Formal arguments have changed. 
+
+    o rNeymanScott
+    Argument 'lmax' has been replaced by 'kappamax'.
+    New argument 'mumax'.
+
+    o rPoissonCluster
+    Argument 'lmax' has been replaced by 'kappamax'.
+
+BUG FIXES
+
+    o rThomas, rMatClust, rCauchy, rVarGamma
+    If the model was very close to a Poisson process,
+    and if saveLambda=TRUE was selected,
+    the attribute "Lambda" was incorrectly labelled "lambda".
+    Fixed.
+
+    o clusterradius
+    Crashed sometimes with message about infinite values of the integrand.
+    Fixed.
+
+        CHANGES IN spatstat.random VERSION 3.1-0
+
+OVERVIEW
+
+    o Internal improvements.
+    
+
+        CHANGES IN spatstat.random VERSION 3.0-2
+
+OVERVIEW
+
+    o Pakes distribution.
+
+NEW FUNCTIONS
+
+    o dpakes, ppakes, qpakes, rpakes
+    Density, cumulative probability, quantiles, and random generator
+    for the Pakes distribution.
+
+        CHANGES IN spatstat.random VERSION 3.0-1
+
+OVERVIEW
+
+    o Tweaks to placate package checker.
+
+
         CHANGES IN spatstat.random VERSION 3.0-0
 
 OVERVIEW
