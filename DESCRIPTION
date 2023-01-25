@@ -1,6 +1,6 @@
 Package: spatstat.random
-Version: 3.1-2
-Date: 2023-01-24
+Version: 3.1-3
+Date: 2023-01-25
 Title: Random Generation Functionality for the 'spatstat' Family
 Authors@R: c(person("Adrian", "Baddeley", 
                     role = c("aut", "cre"),
@@ -55,7 +55,7 @@ URL: http://spatstat.org/
 NeedsCompilation: yes
 ByteCompile: true
 BugReports: https://github.com/spatstat/spatstat.random/issues
-Packaged: 2023-01-23 20:40:46 UTC; adrian
+Packaged: 2023-01-25 02:01:40 UTC; adrian
 Author: Adrian Baddeley [aut, cre] (<https://orcid.org/0000-0001-9499-8382>),
   Rolf Turner [aut] (<https://orcid.org/0000-0001-5521-5218>),
   Ege Rubak [aut] (<https://orcid.org/0000-0002-6675-533X>),
@@ -67,4 +67,4 @@ Author: Adrian Baddeley [aut, cre] (<https://orcid.org/0000-0001-9499-8382>),
   Dominic Schuhmacher [ctb],
   Rasmus Plenge Waagepetersen [ctb]
 Repository: CRAN
-Date/Publication: 2023-01-24 09:00:02 UTC
+Date/Publication: 2023-01-25 10:20:01 UTC
