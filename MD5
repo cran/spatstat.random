@@ -1,6 +1,6 @@
-c3b709921678ad59d86af721edda1b55 *DESCRIPTION
+4141ab604abab1fe80b2051dba00731f *DESCRIPTION
 cf1cc1ef2fc39da38cb0149bed1be71e *NAMESPACE
-b45cd7dcecc639ef3460678fbd8b950d *NEWS
+24f8e7a0f3aa7b39ddc523d8992cccc8 *NEWS
 5d9344c59bff8a6f68b22efd5a417699 *R/First.R
 d68057c5a99b321d678cae47e8bf72ec *R/clusterfunctions.R
 c0776b8be0ca69830e1b9396e915cb8a *R/clusterinfo.R
@@ -13,7 +13,7 @@ c0776b8be0ca69830e1b9396e915cb8a *R/clusterinfo.R
 2c8a08c946490c5fcbbdbe1f72ec6f57 *R/pakes.R
 99a1c34b91d40b26b39e3d57901cfedf *R/pkgRandomFields.R
 cc7fc0270683fcf28f0f85df7986c0cf *R/quadratresample.R
-a445abc09d8915c8a9ef7f808fc8180d *R/rLGCP.R
+57702f9747e5d0235c02719b776de896 *R/rLGCP.R
 8700883da65cb933e3743867ac12e915 *R/rPSNCP.R
 01ae4b025e9c8508678794363d7c7eb7 *R/rPerfect.R
 6e0b2255bf8b42f5a236c391b10306de *R/rags.R
@@ -48,7 +48,7 @@ d6ba8cf2081775fdeb37cbdc610db598 *R/rshift.psp.R
 2ac2aa88417d99ec2be3f35ec07d0920 *R/rvargamma.R
 c5a0753a40db0a65ae4ee2d598a8388c *R/truncpois.R
 f2d49fc8f50fef7f76bcb3fc7f34efb4 *inst/CITATION
-e5113c13f0d3ffd49060690bfeb91ebc *inst/doc/packagesizes.txt
+32387aadbb566589d49fc5002a84f5a0 *inst/doc/packagesizes.txt
 dbe7862892d2639e1ecca3511d68bf69 *man/Window.rmhmodel.Rd
 34cb9e9e39d414318148cdc500bfb5b9 *man/as.owin.rmhmodel.Rd
 61c0c87549ae2caaa1bbaba32c7006c7 *man/clusterfield.Rd
@@ -63,7 +63,7 @@ d08e61ff122629a2fbdf6df56619a222 *man/dpakes.Rd
 8786b2679753de57cff66911fd4822a9 *man/gauss.hermite.Rd
 461213181774879a7640a252503bf799 *man/indefinteg.Rd
 1fbc3bbdb4fff2e7451930a27a991f0f *man/is.stationary.Rd
-8408b77dffd748b539788e79d619c58b *man/macros/defns.Rd
+cf1f6a6fbaed9e312ba0c8d4a9588448 *man/macros/defns.Rd
 72bd20c301c4de55a5a1564a8c12f02f *man/quadratresample.Rd
 823c0b02c8475d6fb17b40414e6ffabd *man/rCauchy.Rd
 53dbaf7c3e052ee4bbf2b1aa0fdfe246 *man/rDGS.Rd
