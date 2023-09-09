@@ -8,6 +8,7 @@
 \usage{
  rMatClust(kappa, scale, mu, win = square(1),
            nsim=1, drop=TRUE, \dots,
+           n.cond=NULL, w.cond=NULL,
            algorithm=c("BKBC", "naive"),
            nonempty=TRUE, 
            poisthresh=1e-6, saveparents=FALSE, saveLambda=FALSE,
@@ -40,6 +41,15 @@
   \item{\dots}{
     Passed to \code{\link[spatstat.random]{clusterfield}} to control the image
     resolution when \code{saveLambda=TRUE}.
+  }
+  \item{n.cond}{
+    Optional. Integer specifying a fixed number of points.
+    See the section on \emph{Conditional Simulation}.
+  }
+  \item{w.cond}{
+    Optional. Conditioning region. A window (object of class \code{"owin"})
+    specifying the region which must contain exactly \code{n.cond} points.
+    See the section on \emph{Conditional Simulation}.
   }
   \item{algorithm}{
     String (partially matched) specifying the simulation algorithm.
@@ -211,6 +221,19 @@
   using   \code{\link[spatstat.model]{simulate.kppm}}
   (which invokes \code{rMatClust} to perform the simulation).
 }
+\section{Conditional Simulation}{
+  If \code{n.cond} is specified, it should be a single integer.
+  Simulation will be conditional on the event 
+  that the pattern contains exactly \code{n.cond} points
+  (or contains exactly \code{n.cond} points inside
+  the region \code{w.cond} if it is given).
+
+  Conditional simulation uses the rejection algorithm described
+  in Section 6.2 of Moller, Syversveen and Waagepetersen (1998).
+  There is a maximum number of proposals which will be attempted.
+  Consequently the return value may contain fewer
+  than \code{nsim} point patterns.
+}
 \seealso{
   \code{\link[spatstat.random]{rpoispp}}, 
   \code{\link[spatstat.random]{rThomas}}, 
@@ -248,6 +271,10 @@
   \Matern, B. (1986)
   \emph{Spatial Variation}.
   Lecture Notes in Statistics 36, Springer-Verlag, New York.
+
+  \Moller, J., Syversveen, A. and Waagepetersen, R. (1998)
+  Log Gaussian Cox Processes.
+  \emph{Scandinavian Journal of Statistics} \bold{25}, 451--482.
 
   Waagepetersen, R. (2007)
   An estimating function approach to inference for

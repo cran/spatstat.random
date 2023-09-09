@@ -1,8 +1,8 @@
-4141ab604abab1fe80b2051dba00731f *DESCRIPTION
+951cbddd10319fc49547e780bdcfe839 *DESCRIPTION
 cf1cc1ef2fc39da38cb0149bed1be71e *NAMESPACE
-24f8e7a0f3aa7b39ddc523d8992cccc8 *NEWS
+08f17c5a4bea3912a82270bffd7a06be *NEWS
 5d9344c59bff8a6f68b22efd5a417699 *R/First.R
-d68057c5a99b321d678cae47e8bf72ec *R/clusterfunctions.R
+387e7d55d7abd6f7e540d04e18a4c4e2 *R/clusterfunctions.R
 c0776b8be0ca69830e1b9396e915cb8a *R/clusterinfo.R
 0b6eb3ae590ccc11804eb7f9670d666d *R/clustersiminfo.R
 61a36590b162750cf3fa426976b3102f *R/defaultwin.R
@@ -17,7 +17,7 @@ cc7fc0270683fcf28f0f85df7986c0cf *R/quadratresample.R
 8700883da65cb933e3743867ac12e915 *R/rPSNCP.R
 01ae4b025e9c8508678794363d7c7eb7 *R/rPerfect.R
 6e0b2255bf8b42f5a236c391b10306de *R/rags.R
-1c5ebba0ff86ebf22bff6aa31338b1c1 *R/random.R
+82312eec52743451045a4c38ce2dadec *R/random.R
 73b70afa74d324923fd971bc1a4f8bbc *R/randomImage.R
 d0a162aba117a643d524628a74063c71 *R/randomNS.R
 fa2a20908845ff06b7c75266fb0a56d9 *R/randommk.R
@@ -32,7 +32,7 @@ eedacd1030c98a28581e77fdd3705ea3 *R/rcauchy.R
 dd60ae022589a470a663af764cb7574e *R/reach.R
 f47c0eccaa94d6655967d988635109f5 *R/rknn.R
 46885b3952522553234694e60b4bd8e5 *R/rlabel.R
-36338ec2d349b16f31fb0068c9cc8bf4 *R/rmatclust.R
+b67ff7143d02386e3cde0eaa6f54feea *R/rmatclust.R
 35f1e78c4ec615ebdf02bf522d15dbe7 *R/rmh.R
 73158a8982726284b0129765db3606a3 *R/rmh.default.R
 0605d8f7db7997e78130f55a254d025c *R/rmhResolveTypes.R
@@ -48,7 +48,7 @@ d6ba8cf2081775fdeb37cbdc610db598 *R/rshift.psp.R
 2ac2aa88417d99ec2be3f35ec07d0920 *R/rvargamma.R
 c5a0753a40db0a65ae4ee2d598a8388c *R/truncpois.R
 f2d49fc8f50fef7f76bcb3fc7f34efb4 *inst/CITATION
-32387aadbb566589d49fc5002a84f5a0 *inst/doc/packagesizes.txt
+04b8041baace174fee0bb9ee56a857d5 *inst/doc/packagesizes.txt
 dbe7862892d2639e1ecca3511d68bf69 *man/Window.rmhmodel.Rd
 34cb9e9e39d414318148cdc500bfb5b9 *man/as.owin.rmhmodel.Rd
 61c0c87549ae2caaa1bbaba32c7006c7 *man/clusterfield.Rd
@@ -71,7 +71,7 @@ cf1f6a6fbaed9e312ba0c8d4a9588448 *man/macros/defns.Rd
 08e89870e624574222db2a21bd3cb9b7 *man/rGaussPoisson.Rd
 1a3c82b3f5454624af13efe031c33eda *man/rHardcore.Rd
 d7e7e4e353dc4b99b7a0f8a88d4e7333 *man/rLGCP.Rd
-d1c49f00d88b7e9d62c1bbf52ae3579f *man/rMatClust.Rd
+14620f05715818bd68487aae653a461a *man/rMatClust.Rd
 add9d75ec3e07cf63da3152bc7394790 *man/rMaternI.Rd
 197cd3def617904dd5e1674df6277029 *man/rMaternII.Rd
 c1e4a482e87ec963c1099c75cfdf99b7 *man/rMosaicField.Rd
@@ -92,7 +92,7 @@ f0a1b21eaeb8f224376bdb67a508f030 *man/rcell.Rd
 55aeb0c742804dd2fd18971d10ebdce1 *man/rcellnumber.Rd
 6806bfa6a83d12825149cccdf4759aa0 *man/rclusterBKBC.Rd
 e209dfd3cd3f8122f80775e4b04a301c *man/reach.Rd
-8d34decd32d730ebbe8f67af690a6a25 *man/recipEnzpois.Rd
+d624006fc909a346262d1a4ec681f284 *man/recipEnzpois.Rd
 0db3350330da05f76e6f5cf7cef51613 *man/rjitter.psp.Rd
 6dc4bbb5b1b2e45f381673a7488bbd44 *man/rknn.Rd
 7742b613ad127d747aca21db1001bab5 *man/rlabel.Rd
@@ -110,7 +110,7 @@ c90b65188f256e0148e9b4152756a244 *man/rmhstart.Rd
 e6e0db24735267a80f8897df31fa4f59 *man/rpoint.Rd
 b6a91ef76fbc45e3cb1bef941d8e4b83 *man/rpoisline.Rd
 c7a03bb1f0e2e57e0fe02e29d9e5c935 *man/rpoislinetess.Rd
-5f8414b1aac166649eb5069d76ec9789 *man/rpoispp.Rd
+bb50b77b0b147bf0c5acf32f70d9f74c *man/rpoispp.Rd
 5a98dd78a76b9d187fa5cc2fce68d8e5 *man/rpoispp3.Rd
 c0c57551015e5587fae41ec41d2b56bc *man/rpoisppOnLines.Rd
 a6b80bce2cc88f746bf34ad4e7048d6f *man/rpoisppx.Rd
@@ -124,7 +124,7 @@ c4157b8d8685b40d66bf2a8b3c32bc5b *man/rtemper.Rd
 bfe74e8bbf78cbf76f290ca6d57e7748 *man/rthin.Rd
 e5f0ef76ed15fe38919f8eaac90df411 *man/rthinclumps.Rd
 0f58540ffbc0d6b01fc785934fde788c *man/runifdisc.Rd
-8ad52566080f4c5ec43452a8317d6b4f *man/runifpoint.Rd
+c6cd0ff924c28e87c8f626eca487c326 *man/runifpoint.Rd
 2de1693c1362e6e987c05312d0f8a150 *man/runifpoint3.Rd
 dd5048dab20cece81901d32fc828845b *man/runifpointOnLines.Rd
 a9273f2fccb179783c06c7ff39ec6492 *man/runifpointx.Rd

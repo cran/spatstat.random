@@ -1,4 +1,25 @@
 
+        CHANGES IN spatstat.random VERSION 3.1-6
+
+OVERVIEW
+
+    o Conditional simulation for Matern cluster process.
+
+    o Improvements to runifpoint and rpoispp.
+    
+SIGNIFICANT USER-VISIBLE CHANGES
+
+    o rMatClust
+    Can now perform conditional simulation given a fixed number of points.
+    New arguments n.cond and w.cond.
+
+    o runifpoint
+    Argument 'win' can be a tessellation. The specified number of points n
+    will be randomly generated in each tile of the tessellation.
+    
+    o rpoispp
+    New argument 'forcewin'.
+    
         CHANGES IN spatstat.random VERSION 3.1-5
 
 OVERVIEW
