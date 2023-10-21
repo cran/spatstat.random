@@ -1,4 +1,38 @@
 
+        CHANGES IN spatstat.random VERSION 3.2-1
+
+OVERVIEW
+
+    o Minor changes to appease the package checker.
+
+
+        CHANGES IN spatstat.random VERSION 3.2-0
+
+OVERVIEW
+
+    o We thank Tilman Davies and David Bryant for contributions.
+
+    o spatstat.random no longer uses 'maptools' or 'RandomFields'.
+    
+    o Minor internal improvements and bug fixes.
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+    o Package dependence
+    spatstat.random no longer suggests the packages
+    'maptools', 'RandomFields' and 'RandomFieldsUtils'.
+
+    o rLGCP
+    This function has been re-implemented without using 'RandomFields'.
+    The implementation currently supports only the 'exponential', 'gaussian',
+    'stable', 'gencauchy' and 'matern' covariance functions.
+
+BUG FIXES
+
+    o rpoislinetess
+    Results were incorrect unless the window was centred at the origin.
+    Fixed.
+    
         CHANGES IN spatstat.random VERSION 3.1-6
 
 OVERVIEW
