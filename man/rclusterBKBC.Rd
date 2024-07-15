@@ -93,7 +93,7 @@ rclusterBKBC(clusters="Thomas",
     Character string (partially matched)
     specifying how to perform numerical computation of integrals
     when required. This argument is passed to
-    \code{\link[spatstat.random]{indefinteg}}.
+    \code{\link[spatstat.univar]{indefinteg}}.
     The default \code{integralmethod="quadrature"} is accurate but
     can be slow. 
     Faster, but possibly less accurate, integration can be performed
@@ -213,7 +213,7 @@ rclusterBKBC(clusters="Thomas",
   If \code{warn=TRUE}, then a warning will be issued if
   the number of random proposal points (proposed parents and proposed
   offspring) is very large.
-  The threshold is \code{\link{spatstat.options}("huge.npoints")}.
+  The threshold is \code{\link[spatstat.geom]{spatstat.options}("huge.npoints")}.
   This warning has no consequences,
   but it helps to trap a number of common problems.
 }
