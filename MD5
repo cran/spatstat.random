@@ -1,6 +1,6 @@
-70202bbe53db9005090a2ebcb29abcee *DESCRIPTION
+fcd93249a5b00c4be2181d01eb45f07c *DESCRIPTION
 b8280a63138d09d968b52947e1034392 *NAMESPACE
-adb6ea016e0dc35c5ad999e24f2993ec *NEWS
+24879a8540f81e397dcb52d8527a120d *NEWS
 5d9344c59bff8a6f68b22efd5a417699 *R/First.R
 387e7d55d7abd6f7e540d04e18a4c4e2 *R/clusterfunctions.R
 bc5674927fabd0041e5d6a7e58a92435 *R/clusterinfo.R
@@ -16,7 +16,7 @@ cc7fc0270683fcf28f0f85df7986c0cf *R/quadratresample.R
 8700883da65cb933e3743867ac12e915 *R/rPSNCP.R
 b702e02485ce677506bf393b50f7b4fe *R/rPerfect.R
 44fe5902fb0c2bb9700c781c588a5682 *R/rags.R
-cd1091b0e1daabcbfeb3ae6a9b2adba1 *R/random.R
+80a2a910b93f44d8cc4c45122fda0c5a *R/random.R
 73b70afa74d324923fd971bc1a4f8bbc *R/randomImage.R
 b458d39cc54e8ccb696b3fcf798b5c9e *R/randomNS.R
 52127c3eeb7a6d9bbae5d1f5849d5632 *R/randomcircembed.R
@@ -49,8 +49,8 @@ fcad67bfa611dff3e5f635743e06b2e6 *R/rthomas.R
 2ac2aa88417d99ec2be3f35ec07d0920 *R/rvargamma.R
 c5a0753a40db0a65ae4ee2d598a8388c *R/truncpois.R
 f2d49fc8f50fef7f76bcb3fc7f34efb4 *inst/CITATION
-29ef8f63299746d6e6c725c3767292b2 *inst/doc/packagesizes.txt
-29ef8f63299746d6e6c725c3767292b2 *inst/info/packagesizes.txt
+a2e5ee0182a5177b34a3fc64eac5ee0d *inst/doc/packagesizes.txt
+a2e5ee0182a5177b34a3fc64eac5ee0d *inst/info/packagesizes.txt
 6a2ff4ca92e53aa4f7eb5963bb904e7f *man/Window.rmhmodel.Rd
 1cd7aa7510bfa5e31b203d9b9692d4cd *man/as.owin.rmhmodel.Rd
 61c0c87549ae2caaa1bbaba32c7006c7 *man/clusterfield.Rd
@@ -81,7 +81,7 @@ df76cdf31a19a0cce7fdb1ff422f4c14 *man/rNeymanScott.Rd
 63af320a657cc764b0b99c19834b953b *man/rPSNCP.Rd
 96b41ead2b472a820a8d9a0271bba0f1 *man/rPenttinen.Rd
 bef83c3f52278685b81b29008363cec5 *man/rPoissonCluster.Rd
-e7443e8d77afb5d5c7de51a4e8dca7ee *man/rSSI.Rd
+5d09b841a6e9c0c6fc6363d7b0c0a67c *man/rSSI.Rd
 a372ab41b3bf898a96436b6b4cc05172 *man/rStrauss.Rd
 e7d7db2739548524f747c810060dc23d *man/rStraussHard.Rd
 6336331702f723e5dfd4e56ef2e9e284 *man/rThomas.Rd
@@ -92,7 +92,7 @@ e7d7db2739548524f747c810060dc23d *man/rStraussHard.Rd
 2df0f5cfd6d267e828ed761a8c051051 *man/rcell.Rd
 55aeb0c742804dd2fd18971d10ebdce1 *man/rcellnumber.Rd
 e44baffab06ed32519aecef03a7f4929 *man/rclusterBKBC.Rd
-e209dfd3cd3f8122f80775e4b04a301c *man/reach.Rd
+da1eaaf830f8af2625a57f681f2af23f *man/reach.Rd
 d624006fc909a346262d1a4ec681f284 *man/recipEnzpois.Rd
 0db3350330da05f76e6f5cf7cef51613 *man/rjitter.psp.Rd
 6dc4bbb5b1b2e45f381673a7488bbd44 *man/rknn.Rd
@@ -130,7 +130,7 @@ bfe74e8bbf78cbf76f290ca6d57e7748 *man/rthin.Rd
 4c13ece655904dd64127da6bdba15004 *man/runifpointOnLines.Rd
 1987f466532aaaffc830bafd0b6ab915 *man/runifpointx.Rd
 db0efb075ebc8e284cfbacd207db88f3 *man/spatstat.random-internal.Rd
-4de27c93808acd9d1e6248f4bb89a844 *man/spatstat.random-package.Rd
+edda5cd085c78e7d2321b87f210072aa *man/spatstat.random-package.Rd
 70f976c07e44c9fe6bf41b9d55d326cc *man/update.rmhcontrol.Rd
 513778fbca80df00f2ea2b710263fe3c *man/will.expand.Rd
 364680492862c38e3a5aa09fae627caf *src/Perfect.cc
