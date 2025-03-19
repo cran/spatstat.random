@@ -1,6 +1,6 @@
-fcd93249a5b00c4be2181d01eb45f07c *DESCRIPTION
+4b20bbd0390515422a9af338165c88f5 *DESCRIPTION
 b8280a63138d09d968b52947e1034392 *NAMESPACE
-24879a8540f81e397dcb52d8527a120d *NEWS
+31bed9dfc96dea4450ceae851768782d *NEWS
 5d9344c59bff8a6f68b22efd5a417699 *R/First.R
 387e7d55d7abd6f7e540d04e18a4c4e2 *R/clusterfunctions.R
 bc5674927fabd0041e5d6a7e58a92435 *R/clusterinfo.R
@@ -16,7 +16,7 @@ cc7fc0270683fcf28f0f85df7986c0cf *R/quadratresample.R
 8700883da65cb933e3743867ac12e915 *R/rPSNCP.R
 b702e02485ce677506bf393b50f7b4fe *R/rPerfect.R
 44fe5902fb0c2bb9700c781c588a5682 *R/rags.R
-80a2a910b93f44d8cc4c45122fda0c5a *R/random.R
+5e5894dbc4e47ed43cf9629d21271918 *R/random.R
 73b70afa74d324923fd971bc1a4f8bbc *R/randomImage.R
 b458d39cc54e8ccb696b3fcf798b5c9e *R/randomNS.R
 52127c3eeb7a6d9bbae5d1f5849d5632 *R/randomcircembed.R
@@ -49,8 +49,8 @@ fcad67bfa611dff3e5f635743e06b2e6 *R/rthomas.R
 2ac2aa88417d99ec2be3f35ec07d0920 *R/rvargamma.R
 c5a0753a40db0a65ae4ee2d598a8388c *R/truncpois.R
 f2d49fc8f50fef7f76bcb3fc7f34efb4 *inst/CITATION
-a2e5ee0182a5177b34a3fc64eac5ee0d *inst/doc/packagesizes.txt
-a2e5ee0182a5177b34a3fc64eac5ee0d *inst/info/packagesizes.txt
+f01e2cc00c04c2c0e4c73530933ec62a *inst/doc/packagesizes.txt
+f01e2cc00c04c2c0e4c73530933ec62a *inst/info/packagesizes.txt
 6a2ff4ca92e53aa4f7eb5963bb904e7f *man/Window.rmhmodel.Rd
 1cd7aa7510bfa5e31b203d9b9692d4cd *man/as.owin.rmhmodel.Rd
 61c0c87549ae2caaa1bbaba32c7006c7 *man/clusterfield.Rd
@@ -64,7 +64,7 @@ d08e61ff122629a2fbdf6df56619a222 *man/dpakes.Rd
 c373ab16227fae7cf38f963c21622e5b *man/expand.owin.Rd
 8786b2679753de57cff66911fd4822a9 *man/gauss.hermite.Rd
 a5f86bb472f1dae75b439a3b4e2d4619 *man/is.stationary.Rd
-a2f94d84ffd9011c01a6d3e9e9a6c7e8 *man/macros/defns.Rd
+53d372a19a4ee4ad4c522844f2d3d252 *man/macros/defns.Rd
 72bd20c301c4de55a5a1564a8c12f02f *man/quadratresample.Rd
 823c0b02c8475d6fb17b40414e6ffabd *man/rCauchy.Rd
 53dbaf7c3e052ee4bbf2b1aa0fdfe246 *man/rDGS.Rd
@@ -111,11 +111,11 @@ b1d5965f0874ec6697e156f17ab084d2 *man/rnoise.Rd
 d0696a6834196f1881cb1083d6b69ac8 *man/rpoint.Rd
 32f153a48936713a75f63df0903a4336 *man/rpoisline.Rd
 2cb6b1d08509444f79251d4b854cfe17 *man/rpoislinetess.Rd
-6d1c379c803da06ca031a7a809c89b15 *man/rpoispp.Rd
+2a2aa5f083c6561afe8e6b7444235ae8 *man/rpoispp.Rd
 ab77fbcccd0ec3ae8ad41ba9a83ece00 *man/rpoispp3.Rd
 353a81b873c981e67dcdc29a6b0fcbc9 *man/rpoisppOnLines.Rd
 b8f6816ad0bd7f1e5e9eba369327cdb1 *man/rpoisppx.Rd
-7e4c57ca8690a2ec179fd8e11333a8f2 *man/rpoistrunc.Rd
+6fbf782fb5ba83e2d66114cfc160b81e *man/rpoistrunc.Rd
 21e817e668777254e8f19aab8932b2ff *man/rshift.Rd
 d94f7c5b255d80a39690325aedb71e6f *man/rshift.ppp.Rd
 7025e64603cca3771c59a17930a9d413 *man/rshift.psp.Rd
@@ -185,4 +185,4 @@ d1e8a99cf85ebb30db9b2dcb8b7493e1 *src/straush.c
 37c57420bff9fa1eda217b6a7b98029f *src/triplets.c
 5c127a9d5ddeaee8cc8f34b32218a3a5 *src/yesno.h
 40790bf66f736b7792c311f8c798c5a6 *tests/RMH.R
-562fcde662f402e21576b708013a7d33 *tests/Random.R
+7c6a47dff00aabb08f22f11c047cb7e0 *tests/Random.R
