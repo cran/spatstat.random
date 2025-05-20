@@ -1,4 +1,25 @@
 
+        CHANGES IN spatstat.random VERSION 3.4-1
+
+OVERVIEW
+
+    o Internal fixes.
+    
+        CHANGES IN spatstat.random VERSION 3.4-0
+
+OVERVIEW
+
+    o We thank Murray Efford for contributions.
+
+    o Conditional simulation in rLGCP, rThomas, rMatClust, rCauchy, rVarGamma.
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+    o rLGCP, rThomas, rMatClust, rCauchy, rVarGamma
+    New arguments 'n.cond' and 'w.cond' specify conditional simulation.
+    Every realisation will have exactly 'n = n.cond' points,
+    or exactly 'n.cond' points inside window 'w.cond' if it is given.
+
         CHANGES IN spatstat.random VERSION 3.3-3
 
 OVERVIEW

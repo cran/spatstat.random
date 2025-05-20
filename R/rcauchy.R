@@ -1,7 +1,7 @@
 #'
 #'    rcauchy.R
 #'
-#'   $Revision: 1.8 $ $Date: 2024/06/09 00:12:11 $
+#'   $Revision: 1.16 $ $Date: 2025/05/20 08:21:02 $
 #'
 #'   Simulation of Cauchy cluster process
 #'   using either naive algorithm or BKBC algorithm
@@ -143,14 +143,15 @@ rCauchy <- local({
   ## main function
   rCauchy <- function(kappa, scale, mu, win = square(1),
                          nsim=1, drop=TRUE,
-                         ...,
-                         algorithm=c("BKBC", "naive"),
-                         nonempty=TRUE, 
-                         thresh = 0.001,
-                         poisthresh=1e-6,
-                         expand = NULL,
-                         saveparents=FALSE, saveLambda=FALSE,
-                         kappamax=NULL, mumax=NULL) {
+                      ...,
+                      n.cond=NULL, w.cond=NULL,
+                      algorithm=c("BKBC", "naive"),
+                      nonempty=TRUE, 
+                      thresh = 0.001,
+                      poisthresh=1e-6,
+                      expand = NULL,
+                      saveparents=FALSE, saveLambda=FALSE,
+                      kappamax=NULL, mumax=NULL, LambdaOnly=FALSE) {
     ## Cauchy cluster process
     
     ## scale / omega: scale parameter of Cauchy kernel function
@@ -165,6 +166,38 @@ rCauchy <- local({
     if(missing(scale)) scale <- dots[["omega"]]
     check.1.real(scale)
     stopifnot(scale > 0)
+
+    ## algorithm choices
+    doLambda <- isTRUE(saveLambda) || isTRUE(LambdaOnly)
+    conditioning <- !is.null(n.cond)
+    if((conditioning || doLambda) && !isTRUE(spatstat.options("developer"))) {
+      ## The naive algorithm must be used
+      ## Change defaults      
+      algorithm <- if(missing(algorithm)) "naive" else match.arg(algorithm)
+      nonempty  <- if(missing(nonempty)) FALSE else isTRUE(nonempty)
+      ## Override given arguments with a warning
+      reason <- if(conditioning) "for conditional simulation" else "for intensity calculation"
+      algorithm <- warn.reset.arg(algorithm, "naive", reason)
+      nonempty  <- warn.reset.arg(nonempty,  FALSE,   reason)
+    } else {
+      ## Any choice of algorithm is permitted
+      algorithm <- match.arg(algorithm)
+      nonempty <- isTRUE(nonempty)
+    }
+
+    ## conditional simulation
+    if(conditioning) {
+      mod <- clusterprocess("Cauchy", mu=mu, kappa=kappa, scale=scale)
+      result <- CondSimCox(mod, nsim=nsim, ...,
+                           nonempty=nonempty, algorithm=algorithm,
+                           win=win, n.cond=n.cond, w.cond=w.cond,
+                           saveparents=saveparents,
+                           saveLambda=saveLambda, LambdaOnly=LambdaOnly,
+                           drop=drop)
+      return(result)
+    }
+
+    ## ------- Unconditional simulation ------------------
     
     ## Catch old name 'eps' for 'thresh':
     if(missing(thresh))
@@ -189,21 +222,13 @@ rCauchy <- local({
       
     ## detect trivial case where patterns are empty
     if(kappamax == 0 || mumax == 0) {
-      empt <- ppp(window=win)
-      if(saveparents) {
-        attr(empt, "parents") <- list(x=numeric(0), y=numeric(0))
-        attr(empt, "parentid") <- integer(0)
-        attr(empt, "cost") <- 0
-      }
-      if(saveLambda) 
-        attr(empt, "Lambda") <- as.im(0, W=win)
-      result <- rep(list(empt), nsim)
+      result <- emptyNeyScot(win, nsim,
+                             saveLambda, saveparents, LambdaOnly, ...)
       return(simulationresult(result, nsim=nsim, drop=drop))
     }
 
     #' determine algorithm
-    algorithm <- match.arg(algorithm)
-    do.parents <- saveparents || saveLambda || !is.numeric(kappa)
+    do.parents <- saveparents || doLambda || !is.numeric(kappa)
     do.hybrid <- (algorithm == "BKBC") && nonempty 
 
     if(do.hybrid) {
@@ -229,7 +254,8 @@ rCauchy <- local({
         if(is.function(mu)) mu <- as.im(mu, W=win, ...)
         kapmu <- kappa * mu
         result <- rpoispp(kapmu, win=win, nsim=nsim, drop=drop, warnwin=FALSE)
-        result <- fakeNeyScot(result, kapmu, win, saveLambda, saveparents)
+        result <- fakeNeyScot(result, kapmu, win,
+                              saveLambda, saveparents, LambdaOnly)
         return(result)
       }
     
@@ -246,14 +272,22 @@ rCauchy <- local({
 
     }
 
-    if(saveLambda){
+    if(doLambda){
       BW <- Frame(win)
       for(i in 1:nsim) {
         parents <- attr(result[[i]], "parents")
         BX <- boundingbox(BW, bounding.box.xy(parents))
         parents <- as.ppp(parents, W=BX, check=FALSE)
         Lambda <- clusterfield("Cauchy", parents, scale=scale, mu=mu, ...)
-        attr(result[[i]], "Lambda") <- Lambda[win, drop=FALSE]
+        Lambda <- Lambda[win, drop=FALSE]
+        if(LambdaOnly) {
+          #' save only the intensity
+          result[[i]] <- Lambda
+          if(saveparents) attr(result[[i]], "parents") <- parents
+        } else {
+          #' usual case - save intensity as attribute
+          attr(result[[i]], "Lambda") <- Lambda
+        }
       }
     }
     return(simulationresult(result, nsim, drop))
