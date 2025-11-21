@@ -1,6 +1,6 @@
 Package: spatstat.random
-Version: 3.4-2
-Date: 2025-09-21
+Version: 3.4-3
+Date: 2025-11-21
 Title: Random Generation Functionality for the 'spatstat' Family
 Authors@R: c(person("Adrian", "Baddeley", 
                     role = c("aut", "cre", "cph"),
@@ -34,7 +34,7 @@ Authors@R: c(person("Adrian", "Baddeley",
 	            role = c("ctb", "cph")))
 Maintainer: Adrian Baddeley <Adrian.Baddeley@curtin.edu.au>
 Depends: R (>= 3.5.0), spatstat.data (>= 3.1), spatstat.univar (>=
-        3.1), spatstat.geom (>= 3.5-0), stats, utils, methods,
+        3.1), spatstat.geom (>= 3.6-0), stats, utils, methods,
         grDevices
 Imports: spatstat.utils (>= 3.1-4)
 Suggests: spatial, spatstat.linnet (>= 3.2), spatstat.explore,
@@ -57,7 +57,7 @@ URL: http://spatstat.org/
 NeedsCompilation: yes
 ByteCompile: true
 BugReports: https://github.com/spatstat/spatstat.random/issues
-Packaged: 2025-09-21 09:09:06 UTC; adrian
+Packaged: 2025-11-21 02:14:35 UTC; adrian
 Author: Adrian Baddeley [aut, cre, cph] (ORCID:
     <https://orcid.org/0000-0001-9499-8382>),
   Rolf Turner [aut, cph] (ORCID: <https://orcid.org/0000-0001-5521-5218>),
@@ -72,4 +72,4 @@ Author: Adrian Baddeley [aut, cre, cph] (ORCID:
   Dominic Schuhmacher [ctb, cph],
   Rasmus Plenge Waagepetersen [ctb, cph]
 Repository: CRAN
-Date/Publication: 2025-09-21 10:00:02 UTC
+Date/Publication: 2025-11-21 06:10:14 UTC
